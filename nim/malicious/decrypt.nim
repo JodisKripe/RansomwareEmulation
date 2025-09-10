@@ -21,17 +21,17 @@ proc DecryptFile(file: string) =
         return
     decryptFile(file, decryptedFile,password,1024)
     removeFile(file)
-    echo "File decrypted"
+    #echo "File decrypted"
 
 
 proc fileWalk(path: string) {.thread.}=
   for kind, path in walkDir(path):
     case kind:
     of pcFile:
-      echo "File: ", path
+      #echo "File: ", path
       spawn DecryptFile(path)
     of pcDir:
-      echo "Dir: ", path
+      #echo "Dir: ", path
       spawn fileWalk(path)
     of pcLinkToFile:
       echo "Link to file: ", path
