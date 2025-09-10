@@ -4,9 +4,9 @@ import strenc
 import threadpool
 import std/os
 
-# COMPILE: nim --threads:on -d:release c canRun.nim
-# For Windows: nim --threads:on -d:release --os:windows --cpu:amd64 --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc c canRun.nim
-# RUN: nim --threads:on -d:release r canRun.nim ./somefolder/ ./sensfold/
+# COMPILE: nim --threads:on -d:release c decrypt.nim
+# For Windows: nim --threads:on -d:release --os:windows --cpu:amd64 --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc c decrypt.nim
+# RUN: nim --threads:on -d:release r decrypt.nim ./somefolder/ ./sensfold/
 
 proc DecryptFile(file: string) =
   {.gcsafe.}:

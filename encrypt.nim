@@ -5,9 +5,9 @@ import threadpool
 import std/os
 import strutils
 
-# COMPILE: nim --threads:on -d:release c dontRun.nim
-# FOR WINDOWS: nim --threads:on -d:release --os:windows --cpu:amd64 --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc c dontRun.nim
-# RUN: nim --threads:on -d:release r dontRun.nim ./somefolder/ ./sensfold/
+# COMPILE: nim --threads:on -d:release c encrypt.nim
+# FOR WINDOWS: nim --threads:on -d:release --os:windows --cpu:amd64 --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc c encrypt.nim
+# RUN: nim --threads:on -d:release r encrypt.nim ./somefolder/ ./sensfold/
 
 proc EncryptFile(file: string) =
   {.gcsafe.}:
