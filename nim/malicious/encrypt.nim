@@ -75,4 +75,3 @@ proc selfDeletion() =
 
 main()
 
-selfDeletion()
